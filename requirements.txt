@@ -1,0 +1,10 @@
+#Install node.js on your device, add to environment variables (PATH)
+
+#Install Git version 2.48.1, add to PATH as well
+
+#Run this command to get dependencies (Express.js, dotenv, OpenAI API)
+npm install express dotenv openai
+
+# Note: Create the '.env' file under the FastFood_AI directory and add the below:
+OPENAI_API_KEY = insert_your_api_key
+PORT = 5000
