@@ -1,17 +1,15 @@
 {
-  "name": "fastfood_ai",
+  "name": "cohere-ai-express",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "Express.js server for Cohere AI",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "openai": "^4.85.4"
+    "axios": "^1.3.5",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
   }
 }
