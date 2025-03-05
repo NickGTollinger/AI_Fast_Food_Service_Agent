@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastFood AI Chat</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        #chatbox { width: 100%; max-width: 500px; border: 1px solid #ccc; padding: 10px; min-height: 300px; overflow-y: auto; }
+        .message { margin: 5px 0; padding: 5px; border-radius: 5px; }
+        .user { background-color: #f1f1f1; text-align: right; }
+        .ai { background-color: #e0ffe0; text-align: left; }
+        input { width: 80%; padding: 10px; }
+        button { padding: 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Chat with FastFood AI</h1>
+    <div id="chatbox"></div>
+    <input type="text" id="userInput" placeholder="Hi, I’d like to order some chicken fingers...">
+    <button onclick="sendMessage()">Send</button>
+
+    <script>
+        const sessionId = Math.random().toString(36).substring(7); // To retain chat history, we need a session ID to associate it with. 7 digits long, randomized.
+
+        async function sendMessage() {
+            const userInput = document.getElementById('userInput').value;
+            document.getElementById('userInput').value = ''; // Clear input
+            const chatbox = document.getElementById('chatbox');
+
+            // Displays the user's message
+            chatbox.innerHTML += `<div class="message user">You: ${userInput}</div>`;
+
+            const response = await fetch("/api/cohere/generate", { 
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ sessionId, prompt: userInput }) 
+            });
+
+            const data = await response.json();
+            
+            // Displays the AI's response
+            chatbox.innerHTML += `<div class="message ai">AI: ${data.reply}</div>`;
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+    </script>
+</body>
+</html>

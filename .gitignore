@@ -1,7 +1,7 @@
-# Ignore environment variable files
+# We must ignore .env to preserve API key security
 .env
 
-# Ignore node_modules (to avoid pushing all dependencies)
+# Ignore node_modules (dependencies for Node.js, no need to repush)
 node_modules/
 
 # Ignore logs
