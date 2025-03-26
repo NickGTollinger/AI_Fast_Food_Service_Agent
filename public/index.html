@@ -142,7 +142,8 @@
       chatbox.innerHTML += `<div class="message user">You: ${userInput}</div>`;
 
       // Send message to your backend API (update the URL as needed)
-      const response = await fetch("/api/cohere/generate", {
+      const response = await fetch("https://cs4485-team-6.onrender.com/api/cohere/generate", {
+
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ sessionId, prompt: userInput })
