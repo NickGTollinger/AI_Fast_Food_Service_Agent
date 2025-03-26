@@ -79,7 +79,7 @@ const formatOrder = (order) => {
 const calculateTotal = (order) => {
   return order.reduce((sum, item) => sum + item.price * item.quantity, 0);
 };
-console.log("Calling Cohere with prompt:\n", aiPrompt);
+
 const rephraseWithCohere = async (updateMessage, currentOrder, total) => {
   const fullOrder = formatOrder(currentOrder);
 
@@ -111,7 +111,6 @@ Rephrase the update summary as a friendly and natural message to the customer:
 
   return response.data.generations[0].text.trim();
 };
-
 const generateText = async (sessionId, userPrompt) => {
   const userText = normalize(userPrompt);
 
