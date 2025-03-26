@@ -1,25 +1,29 @@
-const express = require("express");
-const path = require("path");
-const dotenv = require("dotenv");
+const express = require('express');
+const dotenv = require('dotenv');
+const cors = require('cors');
+const path = require('path');
+const cohereRoutes = require('./routes/cohereRoutes');
+
 dotenv.config();
 
 const app = express();
-
-// Middleware
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(cors());
 
-// Routes
-const cohereRoutes = require("./routes/cohereRoutes");
-app.use("/api", cohereRoutes);
+// Retrieve the chat interface from our index.html and prepare to run server
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Export the app if it's being required (for Vercel)
-if (process.env.VERCEL) {
-  module.exports = app;
-} else {
-  // Local dev server
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => {
+app.use('/api/cohere', cohereRoutes);
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Chat interface available at http://localhost:${PORT}/index.html`);
+    console.log(`Test API endpoint at http://localhost:${PORT}/api/cohere/generate`);
+});
+
+app.use((req, res, next) => {
+    console.warn(`⚠️  Unmatched request: ${req.method} ${req.originalUrl}`);
+    res.status(404).send("Route not found");
   });
-}
+  
