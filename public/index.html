@@ -158,8 +158,8 @@
     // Display the AI's response
     chatbox.innerHTML += `<div class="message ai">AI: ${data.reply}</div>`;
   } catch (error) {
-    console.error("❌ Fetch error:", error);
-    chatbox.innerHTML += `<div class="message ai">⚠️ Error: ${error.message}</div>`;
+    console.error("Fetch error:", error);
+    chatbox.innerHTML += `<div class="message ai"> Error: ${error.message}</div>`;
   }
 
   chatbox.scrollTop = chatbox.scrollHeight;
