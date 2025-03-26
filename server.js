@@ -23,7 +23,7 @@ app.listen(PORT, () => {
 });
 
 app.use((req, res, next) => {
-    console.warn(`⚠️  Unmatched request: ${req.method} ${req.originalUrl}`);
+    console.warn(`Unmatched request: ${req.method} ${req.originalUrl}`);
     res.status(404).send("Route not found");
   });
   
