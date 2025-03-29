@@ -4,14 +4,16 @@ dotenv.config();
 
 const sessionOrders = {};
 
-//This is the placeholder menu for testing purposes. The full menu of items from MongoDB will replace these.
-const menuItems = [
-  { name: "3 Finger Combo", price: 7.99 },
-  { name: "Caniac Combo", price: 10.99 },
-  { name: "Box Combo", price: 8.99 },
-  { name: "Texas Toast", price: 1.50 },
-  { name: "Lemonade", price: 2.49 }
-];
+const connectDB = require("../db");
+let db;
+let menuItems = [];
+
+(async () => {
+  db = await connectDB();
+  const collection = db.collection("menu_items");
+  menuItems = await collection.find({}).toArray();
+})();
+
 
 //Adjust to remove case sensitivity and punctuation where needed
 const normalize = (text) => text.toLowerCase().replace(/[^a-z0-9\s]/g, '');
