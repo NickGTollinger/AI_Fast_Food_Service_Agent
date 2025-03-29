@@ -12,6 +12,8 @@ let menuItems = [];
   db = await connectDB();
   const collection = db.collection("menu_items");
   menuItems = await collection.find({}).toArray();
+  
+  console.log("Menu successfully loaded: ", menuItems.length)
 })();
 
 
