@@ -1,8 +1,8 @@
 const axios = require('axios');
-const dotenv = require('dotenv');
-dotenv.config();
-
-const sessionOrders = {};
+ const dotenv = require('dotenv');
+ dotenv.config();
+ 
+ const sessionOrders = {};
 
 const connectDB = require("../db");
 let db;
