@@ -9,6 +9,7 @@ async function connectDB() {
     await client.connect();
     return client.db("canes_database"); 
   } catch (err) {
+    console.error("Failed to connect to database", err.message);
     process.exit(1);
   }
 }
