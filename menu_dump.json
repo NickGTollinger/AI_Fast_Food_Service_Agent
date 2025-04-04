@@ -1,0 +1,1893 @@
+[
+  {
+    "_id": "67ccc2986b66040ac06815d5",
+    "name": "Sweet Tea",
+    "category": "Drinks",
+    "sizes": [
+      {
+        "size": "Regular",
+        "price": 2.49,
+        "calories": 230
+      },
+      {
+        "size": "Large",
+        "price": 2.76,
+        "calories": 340
+      },
+      {
+        "size": "Small",
+        "price": 1.19,
+        "calories": 130
+      }
+    ],
+    "options": [
+      {
+        "ice": [
+          "Cane's Ice",
+          "No Ice"
+        ]
+      }
+    ]
+  },
+  {
+    "_id": "67ccc6586b66040ac06815f6",
+    "name": "Unsweet Tea",
+    "category": "Drinks",
+    "sizes": [
+      {
+        "size": "Regular",
+        "price": 2.49,
+        "calories": 0
+      },
+      {
+        "size": "Large",
+        "price": 2.76,
+        "calories": 0
+      },
+      {
+        "size": "Small",
+        "price": 1.19,
+        "calories": 0
+      }
+    ],
+    "options": {
+      "ice": [
+        "Cane's Ice",
+        "No Ice"
+      ],
+      "addons": {
+        "choices": [
+          "Sweet'N Low",
+          "Splenda",
+          "Equal",
+          "Sugar",
+          "Lemon"
+        ],
+        "max_selections": 2
+      }
+    }
+  },
+  {
+    "_id": "67ccd0936b66040ac068169c",
+    "name": "Bottled Water",
+    "category": "Drinks",
+    "sizes": [
+      {
+        "size": "16.9 oz",
+        "price": 2.49
+      },
+      {
+        "size": "20 oz",
+        "price": 2.76
+      }
+    ]
+  },
+  {
+    "_id": "67ccd80e6b66040ac068171a",
+    "name": "Lemonade",
+    "category": "Drinks",
+    "sizes": [
+      {
+        "size": "Regular",
+        "price": 2.69,
+        "calories": 290
+      },
+      {
+        "size": "Large",
+        "price": 2.99,
+        "calories": 420
+      }
+    ],
+    "options": {
+      "ice": [
+        "Cane's Ice",
+        "No Ice"
+      ]
+    }
+  },
+  {
+    "_id": "67ccd8d16b66040ac0681721",
+    "name": "Half Sweet Tea / Half Lemonade",
+    "category": "Drinks",
+    "sizes": [
+      {
+        "size": "Regular",
+        "price": 2.69,
+        "calories": 260
+      },
+      {
+        "size": "Large",
+        "price": 2.99,
+        "calories": 370
+      },
+      {
+        "size": "12oz",
+        "price": 1.19,
+        "calories": "140"
+      }
+    ],
+    "options": {
+      "ice": [
+        "Cane's Ice",
+        "No Ice"
+      ],
+      "drink_style": {
+        "choices": [
+          "Sweet Tea"
+        ],
+        "max_selections": 1
+      }
+    }
+  },
+  {
+    "_id": "67ce2dfe6b66040ac0682771",
+    "name": "Jug Unsweet Tea",
+    "category": "Drinks",
+    "sizes": [
+      {
+        "size": "1 gallon",
+        "price": 5.99,
+        "calories": 0
+      }
+    ]
+  },
+  {
+    "_id": "67ce2e1e6b66040ac0682772",
+    "name": "Jug Sweet Tea",
+    "category": "Drinks",
+    "sizes": [
+      {
+        "size": "1 gallon",
+        "price": 5.99,
+        "calories": 1380
+      }
+    ]
+  },
+  {
+    "_id": "67ce2e536b66040ac0682773",
+    "name": "Jug Lemonade",
+    "category": "Drinks",
+    "sizes": [
+      {
+        "size": "1 gallon",
+        "price": 10.89,
+        "calories": 1750
+      }
+    ]
+  },
+  {
+    "_id": "67ce38b16b66040ac0682804",
+    "name": "Chicken Finger",
+    "category": "Extras",
+    "calories": 130,
+    "price": 1.99,
+    "special_instructions": true
+  },
+  {
+    "_id": "67ce39406b66040ac0682808",
+    "name": "Fries",
+    "category": "Extras",
+    "calories": 400,
+    "price": 2.49,
+    "description": "Crinkle-cut and perfectly salted",
+    "special_instructions": true
+  },
+  {
+    "_id": "67ce39b76b66040ac0682812",
+    "name": "Cane's Sauce",
+    "category": "Extras",
+    "calories": 190,
+    "size": "1.5 oz",
+    "price": 0.39,
+    "special_intructions": true
+  },
+  {
+    "_id": "67ce3a2b6b66040ac0682815",
+    "name": "Texas Toast",
+    "category": "Extras",
+    "calories": 150,
+    "price": 1.38,
+    "description": "Golden brown and garlic buttery",
+    "special_instructions": true
+  },
+  {
+    "_id": "67ce3aa36b66040ac068281a",
+    "name": "Coleslaw",
+    "category": "Extras",
+    "calories": 100,
+    "size": "3.1 oz",
+    "price": 1.38,
+    "special_instructions": true
+  },
+  {
+    "_id": "67ce3b9f6b66040ac0682823",
+    "name": "Sandwich",
+    "category": "Extras",
+    "calories": 780,
+    "price": 7.69,
+    "ingredients": "3 Chicken Fingers, Cane’s Sauce® and lettuce on a toasted bun",
+    "special_instructions": true
+  },
+  {
+    "_id": "67e20443e288ddf6bf70cfaf",
+    "name": "50-Finger Tailgate",
+    "category": "Tailgates",
+    "price": 79.99,
+    "description": "16 Cane's Sauces included with each order or 22 oz. cup. Cal/Chicken Finger & 1.5 oz. Sauce.",
+    "items": [
+      {
+        "name": "Chicken Fingers"
+      },
+      {
+        "name": "Cane's Sauce"
+      }
+    ],
+    "options": {
+      "sauce_choice": {
+        "choices": [
+          {
+            "name": "Individual Sauces",
+            "size": "1.5 oz"
+          },
+          {
+            "name": "Family-Style, Large Sauce To Share",
+            "size": "22 oz"
+          }
+        ],
+        "max_selections": 1
+      }
+    },
+    "special_instructions": true
+  },
+  {
+    "_id": "67e2048be288ddf6bf70cfb1",
+    "name": "25-Finger Tailgate",
+    "category": "Tailgates",
+    "price": 41.99,
+    "description": "8 Cane's Sauces included with each order. Cal/Chicken Finger & 1.5 oz. Sauce.",
+    "items": [
+      {
+        "name": "Chicken Fingers"
+      },
+      {
+        "name": "Cane's Sauce"
+      }
+    ],
+    "options": {
+      "sauce_choice": {
+        "choices": [
+          {
+            "name": "Individual Sauces",
+            "size": "1.5 oz"
+          },
+          {
+            "name": "Family-Style, Large Sauce To Share",
+            "size": "22 oz"
+          }
+        ],
+        "max_selections": 1
+      }
+    },
+    "special_instructions": true
+  },
+  {
+    "_id": "67e204dce288ddf6bf70cfb4",
+    "name": "75-Finger Tailgate",
+    "category": "Tailgates",
+    "price": 118.99,
+    "description": "25 Cane's Sauces included with each order or 32 oz. cup. Cal/Chicken Finger & 1.5 oz. Sauce.",
+    "items": [
+      {
+        "name": "Chicken Fingers"
+      },
+      {
+        "name": "Cane's Sauce"
+      }
+    ],
+    "options": {
+      "sauce_choice": {
+        "choices": [
+          {
+            "name": "Individual Sauces",
+            "size": "1.5 oz"
+          },
+          {
+            "name": "Family-Style, Large Sauce To Share",
+            "size": "32 oz"
+          }
+        ],
+        "max_selections": 1
+      }
+    },
+    "special_instructions": true
+  },
+  {
+    "_id": "67e20516e288ddf6bf70cfb7",
+    "name": "100-Finger Tailgate",
+    "category": "Tailgates",
+    "price": 142.99,
+    "description": "33 Cane's Sauces included with each order or (2) 22 oz. cups. Cal/Chicken Finger & 1.5 oz. Sauce.",
+    "items": [
+      {
+        "name": "Chicken Fingers"
+      },
+      {
+        "name": "Cane's Sauce"
+      }
+    ],
+    "options": {
+      "sauce_choice": {
+        "choices": [
+          {
+            "name": "Individual Sauces",
+            "size": "1.5 oz"
+          },
+          {
+            "name": "Family-Style, Large Sauce To Share",
+            "size": "Two 22 oz cups"
+          }
+        ],
+        "max_selections": 1
+      }
+    },
+    "special_instructions": true
+  },
+  {
+    "_id": "67e20576e288ddf6bf70cfbb",
+    "name": "200-Finger Tailgate",
+    "category": "Tailgates",
+    "price": 281.98,
+    "description": "66 Cane's Sauces included with each order or (4) 22 oz. cups. Cal/Chicken Finger & 1.5 oz. Sauce.",
+    "items": [
+      {
+        "name": "Chicken Fingers"
+      },
+      {
+        "name": "Cane's Sauce"
+      }
+    ],
+    "options": {
+      "sauce_choice": {
+        "choices": [
+          {
+            "name": "Individual Sauces",
+            "size": "1.5 oz"
+          },
+          {
+            "name": "Family-Style, Large Sauce To Share",
+            "size": "Four 22 oz cups"
+          }
+        ],
+        "max_selections": 1
+      }
+    },
+    "special_instructions": true
+  },
+  {
+    "_id": "67e2071ee288ddf6bf70cfca",
+    "name": "300-Finger Tailgate",
+    "category": "Tailgates",
+    "price": 420.97,
+    "description": "99 Cane's Sauces included with each order or (6) 22 oz. cups. Cal/Chicken Finger & 1.5 oz. Sauce.",
+    "items": [
+      {
+        "name": "Chicken Fingers"
+      },
+      {
+        "name": "Cane's Sauce"
+      }
+    ],
+    "options": {
+      "sauce_choice": {
+        "choices": [
+          {
+            "name": "Individual Sauces",
+            "size": "1.5 oz"
+          },
+          {
+            "name": "Family-Style, Large Sauce To Share",
+            "size": "Six 22 oz cups"
+          }
+        ],
+        "max_selections": 1
+      }
+    },
+    "special_instructions": true
+  },
+  {
+    "_id": "67e21863e288ddf6bf70d056",
+    "name": "Fountain Drink",
+    "category": "Drinks",
+    "brands": [
+      {
+        "name": "Coke",
+        "calories": {
+          "regular": 430,
+          "large": 630
+        }
+      },
+      {
+        "name": "Diet Coke",
+        "calories": {
+          "regular": 0,
+          "large": 0
+        }
+      },
+      {
+        "name": "Coke Zero",
+        "calories": {
+          "regular": 0,
+          "large": 0
+        }
+      },
+      {
+        "name": "Sprite",
+        "calories": {
+          "regular": 430,
+          "large": 630
+        }
+      },
+      {
+        "name": "Dr Pepper",
+        "calories": {
+          "regular": 260,
+          "large": 380
+        }
+      },
+      {
+        "name": "Barq's Root Beer",
+        "calories": {
+          "regular": 430,
+          "large": 630
+        }
+      },
+      {
+        "name": "Fanta Orange",
+        "calories": {
+          "regular": 430,
+          "large": 630
+        }
+      },
+      {
+        "name": "Hi-C Fruit Punch",
+        "calories": {
+          "regular": 430,
+          "large": 630
+        }
+      }
+    ],
+    "sizes": [
+      {
+        "size": "Regular",
+        "price": 2.49
+      },
+      {
+        "size": "Large",
+        "price": 2.76
+      }
+    ],
+    "options": {
+      "ice": [
+        "Cane's Ice",
+        "No Ice"
+      ]
+    }
+  },
+  {
+    "_id": "67e36e5de288ddf6bf70df0d",
+    "name": "Caniac Combo",
+    "category": "Combos",
+    "price": 16.59,
+    "description": "6 Chicken Fingers, 2 Cane's Sauces, Crinkle-Cut Fries, Texas Toast, Coleslaw, 32 oz Fountain Drink or Tea",
+    "items": [
+      {
+        "name": "Chicken Fingers",
+        "quantity": 6
+      },
+      {
+        "name": "Cane's Sauce",
+        "quantity": 2
+      },
+      {
+        "name": "Fries"
+      },
+      {
+        "name": "Texas Toast"
+      },
+      {
+        "name": "Coleslaw"
+      }
+    ],
+    "options": {
+      "drink": {
+        "choices": [
+          {
+            "brand": "Lemonade",
+            "size": "large",
+            "price": 0.27,
+            "calories": 420
+          },
+          {
+            "brand": "Sweet Tea",
+            "size": "large",
+            "price": 0,
+            "calories": 340
+          },
+          {
+            "brand": "Unsweet Tea",
+            "size": "large",
+            "price": 0.27,
+            "calories": 0,
+            "options": {
+              "addons": {
+                "choices": [
+                  "Sweet'N Low",
+                  "Splenda",
+                  "Equal",
+                  "Sugar",
+                  "Lemon"
+                ],
+                "max_selections": 2
+              }
+            }
+          },
+          {
+            "brand": "Half Unsweet Tea / Half Sweet Tea",
+            "size": "large",
+            "price": 0,
+            "calories": 170
+          },
+          {
+            "brand": "Half Tea / Half Lemonade",
+            "size": "large",
+            "price": 0.27,
+            "calories": 370,
+            "options": {
+              "drink_style": {
+                "choices": [
+                  "Unsweet Tea",
+                  "Sweet Tea"
+                ],
+                "max_selections": 1
+              }
+            }
+          },
+          {
+            "brand": "Coke",
+            "size": "large",
+            "price": 0,
+            "calories": 630
+          },
+          {
+            "brand": "Diet Coke",
+            "size": "large",
+            "price": 0,
+            "calories": 0
+          },
+          {
+            "brand": "Coke Zero",
+            "size": "large",
+            "price": 0,
+            "calories": 0
+          },
+          {
+            "brand": "Sprite",
+            "size": "large",
+            "price": 0,
+            "calories": 630
+          },
+          {
+            "brand": "Dr Pepper",
+            "size": "large",
+            "price": 0,
+            "calories": 380
+          },
+          {
+            "brand": "Barq's Root Beer",
+            "size": "large",
+            "price": 0,
+            "calories": 630
+          },
+          {
+            "brand": "Hi-C Fruit Punch",
+            "size": "large",
+            "price": 0,
+            "calories": 630
+          },
+          {
+            "brand": "Fanta Orange",
+            "size": "large",
+            "price": 0,
+            "calories": 630
+          },
+          {
+            "brand": "Bottled Water",
+            "size": "20 oz",
+            "price": 0,
+            "calories": 0
+          },
+          {
+            "brand": "No Drink"
+          }
+        ],
+        "max_selections": 1,
+        "options": {
+          "ice": [
+            "Cane's Ice",
+            "No Ice"
+          ]
+        }
+      },
+      "sides": {
+        "choices": [
+          "Regular (Fries, Toast, Coleslaw)",
+          "No Slaw",
+          "No Toast",
+          "No Fries"
+        ],
+        "replacement": {
+          "No Slaw": [
+            "Extra Toast",
+            "Extra Fries",
+            "Extra Sauce"
+          ],
+          "No Toast": [
+            "Extra Slaw",
+            "Extra Fries",
+            "Extra Sauce"
+          ],
+          "No Fries": [
+            "Extra Slaw",
+            "Extra Toast",
+            "Extra Sauce"
+          ]
+        },
+        "max_selections": 1
+      },
+      "extra_sauce": {
+        "max_selection": 10,
+        "price_per_sauce": 0.39
+      }
+    }
+  },
+  {
+    "_id": "67e37db4e288ddf6bf70df93",
+    "name": "Sandwich Combo",
+    "category": "Combos",
+    "price": 10.29,
+    "description": "3 Chicken Fingers, Cane's Sauce & Lettuce on a Toasted Bun, Crinkle-Cut Fries, 22 oz Fountain Drink or Tea",
+    "items": [
+      {
+        "name": "Chicken Fingers",
+        "quantity": 3
+      },
+      {
+        "name": "Cane's Sauce",
+        "quantity": 1
+      },
+      {
+        "name": "Lettuce"
+      },
+      {
+        "name": "Toasted Bun"
+      },
+      {
+        "name": "Fries"
+      }
+    ],
+    "options": {
+      "drink": {
+        "choices": [
+          {
+            "name": "Lemonade",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0.2,
+                "calories": 290
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.5,
+                "calories": 420
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ],
+              "drink_style": {
+                "choices": [
+                  "Leprechaun Lemonade",
+                  "Classic"
+                ],
+                "max_selections": 1
+              }
+            }
+          },
+          {
+            "name": "Sweet Tea",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0,
+                "calories": 230
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.27,
+                "calories": 340
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ]
+            }
+          },
+          {
+            "name": "Unsweet Tea",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0,
+                "calories": 0
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.27,
+                "calories": 0
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ],
+              "addons": {
+                "choices": [
+                  "Sweet'N Low",
+                  "Splenda",
+                  "Equal",
+                  "Sugar",
+                  "Lemon"
+                ],
+                "max_selections": 2
+              }
+            }
+          },
+          {
+            "name": "Half Unsweet Tea / Half Sweet Tea",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0,
+                "calories": 120
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.27,
+                "calories": 170
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ]
+            }
+          },
+          {
+            "name": "Half Tea / Half Lemonade",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0.2,
+                "calories": 140
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.5,
+                "calories": 370
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ],
+              "drink_style": {
+                "choices": [
+                  "Unsweet Tea",
+                  "Sweet Tea"
+                ],
+                "max_selections": 1
+              }
+            }
+          },
+          {
+            "name": "Fountain Drink",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.27
+              }
+            ],
+            "brands": [
+              {
+                "name": "Coke",
+                "calories": {
+                  "Regular": 430,
+                  "Large": 630
+                }
+              },
+              {
+                "name": "Diet Coke",
+                "calories": {
+                  "Regular": 0,
+                  "Large": 0
+                }
+              },
+              {
+                "name": "Coke Zero",
+                "calories": {
+                  "Regular": 0,
+                  "Large": 0
+                }
+              },
+              {
+                "name": "Sprite",
+                "calories": {
+                  "Regular": 430,
+                  "Large": 630
+                }
+              },
+              {
+                "name": "Dr Pepper",
+                "calories": {
+                  "Regular": 260,
+                  "Large": 380
+                }
+              },
+              {
+                "name": "Barq's Root Beer",
+                "calories": {
+                  "Regular": 430,
+                  "Large": 630
+                }
+              },
+              {
+                "name": "Hi-C Fruit Punch",
+                "calories": {
+                  "Regular": 430,
+                  "Large": 630
+                }
+              },
+              {
+                "name": "Fanta Orange",
+                "calories": {
+                  "Regular": 430,
+                  "Large": 630
+                }
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ]
+            }
+          },
+          {
+            "name": "Bottled Water",
+            "sizes": [
+              {
+                "size": "20 oz",
+                "price_addition": 0,
+                "calories": 0
+              }
+            ]
+          },
+          {
+            "name": "No Drink"
+          }
+        ],
+        "max_selections": 1
+      },
+      "sides": {
+        "choices": [
+          "Fries",
+          "Toast",
+          "Slaw",
+          "Sauce"
+        ],
+        "max_selections": 1
+      },
+      "extra_sauce": {
+        "max_selection": 10,
+        "price_per_sauce": 0.39
+      }
+    }
+  },
+  {
+    "_id": "67e37ea1e288ddf6bf70df99",
+    "name": "Box Combo",
+    "category": "Combos",
+    "price": 11.49,
+    "description": "4 Chicken Fingers, 1 Cane's Sauce, Crinkle-Cut Fries, Texas Toast, Coleslaw, 22 oz Fountain Drink or Tea",
+    "items": [
+      {
+        "name": "Chicken Fingers",
+        "quantity": 4
+      },
+      {
+        "name": "Cane's Sauce",
+        "quantity": 1
+      },
+      {
+        "name": "Fries"
+      },
+      {
+        "name": "Texas Toast"
+      },
+      {
+        "name": "Coleslaw"
+      }
+    ],
+    "options": {
+      "drink": {
+        "choices": [
+          {
+            "name": "Lemonade",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0.2,
+                "calories": 290
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.5,
+                "calories": 420
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ],
+              "drink_style": {
+                "choices": [
+                  "Leprechaun Lemonade",
+                  "Classic"
+                ],
+                "max_selections": 1
+              }
+            }
+          },
+          {
+            "name": "Sweet Tea",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0,
+                "calories": 230
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.27,
+                "calories": 340
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ]
+            }
+          },
+          {
+            "name": "Unsweet Tea",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0,
+                "calories": 0
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.27,
+                "calories": 0
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ],
+              "addons": {
+                "choices": [
+                  "Sweet'N Low",
+                  "Splenda",
+                  "Equal",
+                  "Sugar",
+                  "Lemon"
+                ],
+                "max_selections": 2
+              }
+            }
+          },
+          {
+            "name": "Half Unsweet Tea / Half Sweet Tea",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0,
+                "calories": 120
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.27,
+                "calories": 170
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ]
+            }
+          },
+          {
+            "name": "Half Tea / Half Lemonade",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0.2,
+                "calories": 140
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.5,
+                "calories": 370
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ],
+              "drink_style": {
+                "choices": [
+                  "Unsweet Tea",
+                  "Sweet Tea"
+                ],
+                "max_selections": 1
+              }
+            }
+          },
+          {
+            "name": "Coke",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0,
+                "calories": 430
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.27,
+                "calories": 630
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ]
+            }
+          },
+          {
+            "name": "Diet Coke",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0,
+                "calories": 0
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.27,
+                "calories": 0
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ]
+            }
+          },
+          {
+            "name": "Coke Zero",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0,
+                "calories": 0
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.27,
+                "calories": 0
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ]
+            }
+          },
+          {
+            "name": "Sprite",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0,
+                "calories": 430
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.27,
+                "calories": 630
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ]
+            }
+          },
+          {
+            "name": "Dr Pepper",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0,
+                "calories": 260
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.27,
+                "calories": 380
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ]
+            }
+          },
+          {
+            "name": "Barq's Root Beer",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0,
+                "calories": 430
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.27,
+                "calories": 630
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ]
+            }
+          },
+          {
+            "name": "Hi-C Fruit Punch",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0,
+                "calories": 430
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.27,
+                "calories": 630
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ]
+            }
+          },
+          {
+            "name": "Fanta Orange",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0,
+                "calories": 430
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.27,
+                "calories": 630
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ]
+            }
+          },
+          {
+            "name": "Bottled Water",
+            "sizes": [
+              {
+                "size": "20 oz",
+                "price_addition": 0,
+                "calories": 0
+              }
+            ]
+          },
+          {
+            "name": "No Drink"
+          }
+        ],
+        "max_selections": 1
+      },
+      "sides": {
+        "choices": [
+          "Regular (Fries, Toast, Coleslaw)",
+          "No Fries",
+          "No Toast",
+          "No Coleslaw"
+        ],
+        "replacement": {
+          "No Fries": [
+            "Extra Toast",
+            "Extra Coleslaw",
+            "Extra Sauce"
+          ],
+          "No Toast": [
+            "Extra Fries",
+            "Extra Coleslaw",
+            "Extra Sauce"
+          ],
+          "No Coleslaw": [
+            "Extra Toast",
+            "Extra Fries",
+            "Extra Sauce"
+          ]
+        },
+        "max_selections": 1
+      },
+      "extra_sauce": {
+        "max_selection": 10,
+        "price_per_sauce": 0.39
+      }
+    }
+  },
+  {
+    "_id": "67e37f76e288ddf6bf70dfa2",
+    "name": "Kids Combo",
+    "category": "Combos",
+    "price": 6.69,
+    "description": "2 Chicken Fingers, 1 Cane's Sauce, Crinkle-Cut Fries, 12 oz Kids Drink",
+    "items": [
+      {
+        "name": "Chicken Fingers",
+        "quantity": 2
+      },
+      {
+        "name": "Cane's Sauce",
+        "quantity": 1
+      },
+      {
+        "name": "Fries"
+      }
+    ],
+    "options": {
+      "drink": {
+        "choices": [
+          {
+            "brand": "Leprechaun Lemonade",
+            "price": 1.19,
+            "calories": 160
+          },
+          {
+            "brand": "Sweet Tea",
+            "price": 1.19,
+            "calories": 130
+          },
+          {
+            "brand": "Unsweet Tea",
+            "price": 1.19,
+            "calories": 0,
+            "options": {
+              "addons": {
+                "choices": [
+                  "Sweet'N Low",
+                  "Splenda",
+                  "Equal",
+                  "Sugar",
+                  "Lemon"
+                ],
+                "max_selections": 2
+              }
+            }
+          },
+          {
+            "brand": "Half Tea / Half Lemonade",
+            "price": 1.19,
+            "calories": 140,
+            "options": {
+              "drink_style": {
+                "choices": [
+                  "Unsweet Tea",
+                  "Sweet Tea"
+                ],
+                "max_selections": 1
+              }
+            }
+          },
+          {
+            "brand": "Coke",
+            "price": 1.19,
+            "calories": 230
+          },
+          {
+            "brand": "Diet Coke",
+            "price": 1.19,
+            "calories": 0
+          },
+          {
+            "brand": "Coke Zero",
+            "price": 1.19,
+            "calories": 0
+          },
+          {
+            "brand": "Sprite",
+            "price": 1.19,
+            "calories": 230
+          },
+          {
+            "brand": "Dr Pepper",
+            "price": 1.19,
+            "calories": 140
+          },
+          {
+            "brand": "Barq's Root Beer",
+            "price": 1.19,
+            "calories": 230
+          },
+          {
+            "brand": "Hi-C Fruit Punch",
+            "price": 1.19,
+            "calories": 230
+          },
+          {
+            "brand": "Fanta Orange",
+            "price": 1.19,
+            "calories": 230
+          },
+          {
+            "brand": "Milk",
+            "price": 1.19,
+            "calories": 110
+          },
+          {
+            "brand": "Juice",
+            "price": 1.19,
+            "calories": 35
+          },
+          {
+            "brand": "Bottled Water",
+            "price": 1.19,
+            "calories": 0
+          },
+          {
+            "brand": "No Drink"
+          }
+        ],
+        "max_selections": 1
+      },
+      "extra_sauce": {
+        "max_selection": 10,
+        "price_per_sauce": 0.39
+      }
+    }
+  },
+  {
+    "_id": "67e381b4e288ddf6bf70dfae",
+    "name": "Three Finger Combo",
+    "category": "Combos",
+    "price": 9.59,
+    "description": "3 Chicken Fingers, 1 Cane's Sauce, Crinkle-Cut Fries, Texas Toast, 22 oz Fountain Drink or Tea",
+    "items": [
+      {
+        "name": "Chicken Fingers",
+        "quantity": 3
+      },
+      {
+        "name": "Cane's Sauce",
+        "quantity": 1
+      },
+      {
+        "name": "Fries"
+      },
+      {
+        "name": "Texas Toast"
+      }
+    ],
+    "options": {
+      "drink": {
+        "choices": [
+          {
+            "name": "Lemonade",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0.2,
+                "calories": 290
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.5,
+                "calories": 420
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ],
+              "drink_style": {
+                "choices": [
+                  "Leprechaun Lemonade",
+                  "Classic"
+                ],
+                "max_selections": 1
+              }
+            }
+          },
+          {
+            "name": "Sweet Tea",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0,
+                "calories": 230
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.27,
+                "calories": 340
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ]
+            }
+          },
+          {
+            "name": "Unsweet Tea",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0,
+                "calories": 0
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.27,
+                "calories": 0
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ],
+              "addons": {
+                "choices": [
+                  "Sweet'N Low",
+                  "Splenda",
+                  "Equal",
+                  "Sugar",
+                  "Lemon"
+                ],
+                "max_selections": 2
+              }
+            }
+          },
+          {
+            "name": "Half Unsweet Tea / Half Sweet Tea",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0,
+                "calories": 120
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.27,
+                "calories": 170
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ]
+            }
+          },
+          {
+            "name": "Half Tea / Half Lemonade",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0.2,
+                "calories": 140
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.5,
+                "calories": 370
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ],
+              "drink_style": {
+                "choices": [
+                  "Unsweet Tea",
+                  "Sweet Tea"
+                ],
+                "max_selections": 1
+              }
+            }
+          },
+          {
+            "name": "Coke",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0,
+                "calories": 430
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.27,
+                "calories": 630
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ]
+            }
+          },
+          {
+            "name": "Diet Coke",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0,
+                "calories": 0
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.27,
+                "calories": 0
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ]
+            }
+          },
+          {
+            "name": "Coke Zero",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0,
+                "calories": 0
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.27,
+                "calories": 0
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ]
+            }
+          },
+          {
+            "name": "Sprite",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0,
+                "calories": 430
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.27,
+                "calories": 630
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ]
+            }
+          },
+          {
+            "name": "Dr Pepper",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0,
+                "calories": 260
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.27,
+                "calories": 380
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ]
+            }
+          },
+          {
+            "name": "Barq's Root Beer",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0,
+                "calories": 430
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.27,
+                "calories": 630
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ]
+            }
+          },
+          {
+            "name": "Hi-C Fruit Punch",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0,
+                "calories": 430
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.27,
+                "calories": 630
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ]
+            }
+          },
+          {
+            "name": "Fanta Orange",
+            "sizes": [
+              {
+                "size": "Regular",
+                "price_addition": 0,
+                "calories": 430
+              },
+              {
+                "size": "Large",
+                "price_addition": 0.27,
+                "calories": 630
+              }
+            ],
+            "options": {
+              "ice": [
+                "Cane's Ice",
+                "No Ice"
+              ]
+            }
+          },
+          {
+            "name": "Bottled Water",
+            "sizes": [
+              {
+                "size": "20 oz",
+                "price_addition": 0,
+                "calories": 0
+              }
+            ]
+          },
+          {
+            "name": "No Drink"
+          }
+        ],
+        "max_selections": 1
+      },
+      "sides": {
+        "choices": [
+          "Regular (Fries, Toast)",
+          "No Fries",
+          "No Toast"
+        ],
+        "replacement": {
+          "No Fries": [
+            "Extra Toast",
+            "Extra Slaw",
+            "Extra Sauce"
+          ],
+          "No Toast": [
+            "Extra Fries",
+            "Extra Slaw",
+            "Extra Sauce"
+          ]
+        },
+        "max_selections": 1
+      },
+      "extra_sauce": {
+        "max_selection": 10,
+        "price_per_sauce": 0.39
+      }
+    }
+  },
+  {
+    "_id": "67edaaa0affd846642e48d82",
+    "name": "Leprechaun Lemonade",
+    "category": "Drinks",
+    "size": "12 oz",
+    "price": 1.19,
+    "calories": 160
+  },
+  {
+    "_id": "67edb3e7affd846642e48d83",
+    "name": "Coke",
+    "category": "Drinks",
+    "size": "Small",
+    "calories": 230,
+    "price": 1.19
+  },
+  {
+    "_id": "67edb43baffd846642e48d84",
+    "name": "Diet Coke",
+    "category": "Drinks",
+    "price": 1.19,
+    "calories": 0,
+    "size": "Small"
+  },
+  {
+    "_id": "67edb508affd846642e48d86",
+    "name": "Coke Zero",
+    "category": "Drinks",
+    "price": 1.19,
+    "calories": 0,
+    "size": "Small"
+  },
+  {
+    "_id": "67edb5a6affd846642e48d87",
+    "name": "Sprite",
+    "category": "Drinks",
+    "size": "Small",
+    "price": 1.19,
+    "calories": 230
+  },
+  {
+    "_id": "67edb736cae1ece71dfdff0b",
+    "name": "Dr Pepper",
+    "category": "Drinks",
+    "size": "Small",
+    "price": 1.19,
+    "calories": 140
+  },
+  {
+    "_id": "67edb79ccae1ece71dfdff0c",
+    "name": "Barq's Root Beer",
+    "category": "Drinks",
+    "size": "Small",
+    "price": 1.19,
+    "calories": 230
+  },
+  {
+    "_id": "67edb7f3cae1ece71dfdff0d",
+    "name": "Hi-C Fruit Punch",
+    "category": "Drinks",
+    "size": "Small",
+    "price": 1.19,
+    "calories": 230
+  },
+  {
+    "_id": "67edb84ecae1ece71dfdff0e",
+    "name": "Fanta Orange",
+    "category": "Drinks",
+    "size": "Small",
+    "price": 1.19,
+    "calories": 230
+  },
+  {
+    "_id": "67edb88bcae1ece71dfdff0f",
+    "name": "Milk",
+    "category": "Drinks",
+    "size": "Small",
+    "price": 1.19,
+    "calories": 110
+  },
+  {
+    "_id": "67edb8c8cae1ece71dfdff10",
+    "name": "Juice",
+    "category": "Drinks",
+    "size": "Small",
+    "price": 1.19,
+    "calories": 35
+  }
+]

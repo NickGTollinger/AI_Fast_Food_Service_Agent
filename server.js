@@ -21,3 +21,9 @@ app.listen(PORT, () => {
     console.log(`Chat interface available at http://localhost:${PORT}/index.html`);
     console.log(`Test API endpoint at http://localhost:${PORT}/api/cohere/generate`);
 });
+
+app.use((req, res, next) => {
+    console.warn(`Unmatched request: ${req.method} ${req.originalUrl}`);
+    res.status(404).send("Route not found");
+  });
+  

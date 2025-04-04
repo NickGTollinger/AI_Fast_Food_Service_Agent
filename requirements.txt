@@ -3,7 +3,7 @@
 #Install Git version 2.48.1, add to PATH as well
 
 #Run this command to get dependencies (Express/Node.js, dotenv for API key security, axios to call Cohere API, cors for frontend requests
-npm install express dotenv axios cors
+npm install express dotenv axios cors serverless-http
 
 # Note: Create the '.env' file under the FastFood_AI directory and add the below:
 COHERE_API_KEY=insert_your_api_key_here
@@ -27,4 +27,5 @@ git push origin master
 # If you run into any issues, try to Google around to solve it. If all else fails, let me know and we'll figure it out
 
 # How do I run the AI chat interface for testing?
-# Assuming you set up the .env correctly with your Cohere API key and Port Number, run server.js. Select the local host link to the Chat interface and you can enter some prompts.
+# Assuming you set up the .env correctly with your Cohere API key and Port Number, run server.js. Select the local host link to the Chat interface and you can enter some prompts. 
+#Quick Test
