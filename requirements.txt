@@ -1,0 +1,31 @@
+#Install node.js on your device, add to environment variables (PATH)
+
+#Install Git version 2.48.1, add to PATH as well
+
+#Run this command to get dependencies (Express/Node.js, dotenv for API key security, axios to call Cohere API, cors for frontend requests
+npm install express dotenv axios cors serverless-http
+
+# Note: Create the '.env' file under the FastFood_AI directory and add the below:
+COHERE_API_KEY=insert_your_api_key_here
+PORT = 3000
+
+# If you've made edits and want to push, perform the below:
+
+git add .
+git commit -m "insert_commit_message_here"
+git push origin master
+
+# In remotely pulling/pushing to our git, we'll be using SSH tokens. If you're not familiar with this, the procedure is like so:
+
+# Enter the following command to generate an SSH key: ssh-keygen -t ed25519 -C "your-email@example.com"
+# Optionally you may enter a passphrase, make sure to remember it though
+# Run this command to generate your key and copy the entire resulting line: cat ~/.ssh/id_ed25519.pub
+# Add this key to your GitHub via Settings --> SSH keys, name it whatever you want and paste your key
+# Run this command to verify your key is active: ssh -T git@github.com
+# It should say you successfully authenticated
+# Lastly, clone the repository: git clone git@github.com:NickGTollinger/CS4485-Team-6.git
+# If you run into any issues, try to Google around to solve it. If all else fails, let me know and we'll figure it out
+
+# How do I run the AI chat interface for testing?
+# Assuming you set up the .env correctly with your Cohere API key and Port Number, run server.js. Select the local host link to the Chat interface and you can enter some prompts. 
+#Quick Test
