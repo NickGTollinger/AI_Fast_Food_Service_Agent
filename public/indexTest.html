@@ -114,7 +114,7 @@
       margin: 20px auto;
       text-align: center;
       box-sizing: border-box;
-      overflow-y: auto; /* Ensures overflow content is scrollable */
+      overflow-y: auto; /* Overflow content is scrollable */
     }
     button {
       padding: 10px;
@@ -146,82 +146,114 @@
     <!-- Chatbox -->
     <div id="chatbox"></div>
 
-    <!-- Input field, Send button, and Speak button -->
+    <!-- Input & Send button -->
     <input type="text" id="userInput" placeholder="Hi, I’d like to order some chicken fingers..." />
     <button class="send" onclick="sendMessage()">Send</button>
-    <button class="speak" onclick="startSpeechRecognition()">Speak</button>
+  </div>
+
+  <!-- Speech Elements -->
+  <div class="box" id="speechBox">
+    <button id="start-btn">Start Recognition</button>
+    <div id="transcript">Transcript will appear here...</div>
   </div>
 
   <script>
-    // Generate a random session id for use with your backend
+    if (!('webkitSpeechRecognition' in window)) {
+      alert("Browser does not support webkitSpeechRecognition.");
+    } else {
+      const recognition = new webkitSpeechRecognition();
+      // Stop phrases. Might change to just enter text to the chatbot rather than end speech recognition.
+      const stopPhrase = ["that is all", "finished", "that's it"];
+
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+
+      recognition.onstart = function() {
+        document.getElementById("transcript").innerText = "Listening...";
+      };
+
+      recognition.onresult = function(event) {
+        let transcript = "";
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          transcript += event.results[i][0].transcript;
+        }
+        // Transcript preprocessing for chatbot. Change as needed.
+        let processedTranscript = transcript.trim().toLowerCase();
+
+        // Check for stop-phrases
+        const stopDetected = stopPhrase.some(phrase => processedTranscript.includes(phrase));
+        if (stopDetected) {
+          recognition.stop();
+          document.getElementById("transcript").innerText = "Recognition ceased by stop phrase.";
+        } else {
+          document.getElementById("transcript").innerText = transcript;
+        }
+      };
+
+      recognition.onerror = function(event) {
+        // Space reserved for handling errors
+      };
+
+      recognition.onend = function() {
+        // Space reserved to handle recognition end
+      };
+
+      // Start recognition when the button is clicked
+      document.getElementById("start-btn").addEventListener("click", function() {
+        recognition.start();
+        // Set optional timeout
+        setTimeout(() => {
+          if (recognition) {
+            recognition.stop();
+            console.log("Speech recognition stopped after timeout.");
+          }
+          // Ten seconds for now
+        }, 10000);
+      });
+    }
+  </script>
+
+
+  <script>
     const sessionId = Math.random().toString(36).substring(7);
 
     async function sendMessage() {
-      const userInputField = document.getElementById('userInput');
-      const userInput = userInputField.value;
-      // Clear the input immediately for a responsive feel
-      userInputField.value = '';
-      const chatbox = document.getElementById('chatbox');
+  const userInput = document.getElementById('userInput').value;
+  document.getElementById('userInput').value = ''; // Clear input
+  const chatbox = document.getElementById('chatbox');
 
-      // Display the user's message in the chatbox
-      chatbox.innerHTML += `<div class="message user">You: ${userInput}</div>`;
+  // Display the user's message
+  chatbox.innerHTML += `<div class="message user">You: ${userInput}</div>`;
 
-      try {
-        // Send message to your backend API
-        const response = await fetch("https://cs4485-team-6-calvin.onrender.com/api/cohere/generate", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ sessionId, prompt: userInput })
-        });
+  try {
+    // Send message to your backend API
+    const response = await fetch("https://cs4485-team-6-calvin.onrender.com/api/cohere/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ sessionId, prompt: userInput })
+    });
 
-        if (!response.ok) {
-          throw new Error(`Server responded with status ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        // Display the AI's response
-        chatbox.innerHTML += `<div class="message ai">AI: ${data.reply}</div>`;
-      } catch (error) {
-        chatbox.innerHTML += `<div class="message ai">Error: ${error.message}</div>`;
-      }
-
-      // Scroll the chatbox to the bottom to show the latest messages
-      chatbox.scrollTop = chatbox.scrollHeight;
+    if (!response.ok) {
+      throw new Error(`Server responded with status ${response.status}`);
     }
+
+    const data = await response.json();
+
+    // Display the AI's response
+    chatbox.innerHTML += `<div class="message ai">AI: ${data.reply}</div>`;
+  } catch (error) {
+    console.error("Fetch error:", error);
+    chatbox.innerHTML += `<div class="message ai"> Error: ${error.message}</div>`;
+  }
+
+  chatbox.scrollTop = chatbox.scrollHeight;
+}
+
 
     function checkout() {
-      // 
+      // Replace this with actual checkout functionality
       alert('Proceeding to checkout!');
-    }
-
-    function startSpeechRecognition() {
-      // Check if browser supports webkitSpeechRecognition
-      if (!('webkitSpeechRecognition' in window)) {
-        alert("Sorry, your browser doesn't support speech recognition.");
-      } else {
-        const recognition = new webkitSpeechRecognition();
-        recognition.continuous = false;
-        recognition.interimResults = false;
-        recognition.lang = 'en-US';
-
-        recognition.onresult = function(event) {
-          let transcript = "";
-          for (let i = event.resultIndex; i < event.results.length; i++) {
-            transcript += event.results[i][0].transcript;
-          }
-          // Place the recognized speech into the text input field
-          document.getElementById('userInput').value = transcript;
-          // Then send the message to the chatbot
-          sendMessage();
-        };
-
-        recognition.onerror = function(event) {
-          // You can handle errors here if needed
-        };
-
-        recognition.start();
-      }
     }
   </script>
 </body>
