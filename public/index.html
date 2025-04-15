@@ -143,7 +143,9 @@
 
   try {
     // Send message to your backend API
-    const response = await fetch("http://localhost:3000/login.html/api/cohere/generate", {
+    const response = await fetch("https://cs4485-team-6.onrender.com/api/cohere/generate", {
+
+
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ sessionId, prompt: userInput })
