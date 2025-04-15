@@ -2,16 +2,24 @@ const { MongoClient } = require("mongodb");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const client = new MongoClient(process.env.MONGO_URI);
+// Use the MONGO_URI from environment variables or fall back to a default string
+const uri = process.env.MONGO_URI="mongodb+srv://dbUser:dbUser@databasecluster.cxgvj.mongodb.net/?retryWrites=true&w=majority&appName=DatabaseCluster"
+const client = new MongoClient(uri);
 
 async function connectDB() {
   try {
     await client.connect();
-    return client.db("canes_database"); 
+    return client.db("canes_database");
   } catch (err) {
     console.error("Failed to connect to database", err.message);
     process.exit(1);
   }
 }
 
-module.exports = connectDB;
+// Helper to get the "user-information" collection
+async function getUserCollection() {
+  const db = await connectDB();
+  return db.collection("user-credentials and information");
+}
+
+module.exports = { connectDB, getUserCollection };
