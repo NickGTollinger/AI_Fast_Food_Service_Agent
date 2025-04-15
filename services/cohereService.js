@@ -287,6 +287,30 @@ Rephrase the update summary as a friendly and natural message to the customer:
   return response.data.generations[0].text.trim();
 };
 
+// Function for saving user order info. This includes session id, eventually customer id, the items, their total, and the date. Customer ID and date will be useful for personalization.
+const saveOrderToDB = async (sessionId) => {
+  console.log("[Saving order]")
+  if (!db || !sessionOrders[sessionId]) return;
+  const order = sessionOrders[sessionId];
+  const total = calculateTotal(order);
+
+  const orderDocument = {
+    sessionId,
+    customerId: null, // Placeholder, replace with actual user ID in the future
+    items: order,
+    total,
+    timestamp: new Date()
+  };
+
+  try {
+    const result = await db.collection('orders').insertOne(orderDocument);
+    console.log(`Order stored with _id: ${result.insertedId}`);
+  } catch (err) {
+    console.error('Failed to save order to DB:', err);
+  }
+};
+
+
 // Generate text operations do not consume AI tokens as they are simple operations that can easily be done via backend operations
 const generateText = async (sessionId, userPrompt) => {
   const userText = normalize(userPrompt);
@@ -470,7 +494,8 @@ for (const [categoryKey, keywords] of Object.entries(categoryKeywords)) {
     const orderHTML = order.map(i =>
       `<li>${i.quantity} × <strong>${i.name}</strong> - $${(i.price * i.quantity).toFixed(2)}</li>`
     ).join('');
-  
+    // Call the save order function when user is finished
+    await saveOrderToDB(sessionId);
     return `
   <h3>Thanks for your order! Here's what I have for you:</h3>
   <ul style="padding-left: 1em;">
