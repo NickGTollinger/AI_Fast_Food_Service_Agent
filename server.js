@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const path = require('path');
 const cohereRoutes = require('./routes/cohereRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 dotenv.config();
 
@@ -26,4 +27,5 @@ app.use((req, res, next) => {
     console.warn(`Unmatched request: ${req.method} ${req.originalUrl}`);
     res.status(404).send("Route not found");
   });
+  
   
