@@ -24,7 +24,7 @@ const stringSimilarity = require('string-similarity');
 // For parsing purposes we remove case sensitivity and extraneous characters
 const normalize = (text) => text.toLowerCase().replace(/[^a-z0-9\s]/g, '');
 
-const extractOrderItems = (input) => {
+const extractOrderItems = (input, quantity = null) => {
   const result = [];
   const text = normalize(input);
   const words = text.split(/\s+/);
@@ -59,7 +59,7 @@ const extractOrderItems = (input) => {
   const entry = {
     name: item.name,
     price: item.price || null,
-    quantity: 1,
+    quantity: quantity || 1,
   };
 
   // --- REMOVABLE COMBO COMPONENT HANDLING ---
@@ -83,7 +83,7 @@ if (item.category === "Combos" && Array.isArray(item.items)) {
       }
     }
     //Process the removal and calculate price change
-    entry.name += ` (No ${removedComponents.join(", ")})`;
+    entry.name += ` (No ${removedComponents.join(", no ")})`;
     entry.price = parseFloat((entry.price - deduction).toFixed(2));
   }
 }
@@ -191,14 +191,30 @@ const updateOrder = (sessionId, newItems) => {
 const removeItems = (sessionId, removeTargets) => {
   if (!sessionOrders[sessionId]) return [];
 
-  const before = [...sessionOrders[sessionId]];
-  sessionOrders[sessionId] = sessionOrders[sessionId].filter(
-    item => !removeTargets.some(target => normalize(target.name) === normalize(item.name))
-  );
+  const removedItems = [];
 
-  return before.filter(
-    item => !sessionOrders[sessionId].some(i => normalize(i.name) === normalize(item.name))
-  );
+  for (const target of removeTargets) {
+    const existingIndex = sessionOrders[sessionId].findIndex(
+      item => normalize(item.name) === normalize(target.name)
+    );
+
+    if (existingIndex !== -1) {
+      const existingItem = sessionOrders[sessionId][existingIndex];
+      const qtyToRemove = target.quantity || existingItem.quantity;
+
+      if (qtyToRemove < existingItem.quantity) {
+        // Partial removal
+        existingItem.quantity -= qtyToRemove;
+        removedItems.push({ ...existingItem, quantity: qtyToRemove });
+      } else {
+        // Remove completely
+        removedItems.push(sessionOrders[sessionId][existingIndex]);
+        sessionOrders[sessionId].splice(existingIndex, 1);
+      }
+    }
+  }
+
+  return removedItems;
 };
 const replaceItem = (sessionId, oldItemName, newItem) => {
   if (!sessionOrders[sessionId]) sessionOrders[sessionId] = [];
@@ -235,8 +251,28 @@ const replaceItem = (sessionId, oldItemName, newItem) => {
   }
 
   if (bestMatchIndex !== -1) {
-    sessionOrders[sessionId].splice(bestMatchIndex, 1, { ...newItem });
+    const existing = sessionOrders[sessionId][bestMatchIndex];
+    const replaceQty = oldItemName.quantity || 1;
+
+    if (existing.quantity > replaceQty) {
+      // Reduce quantity of the original item
+      existing.quantity -= replaceQty;
+    } else {
+      // Remove the item entirely
+      sessionOrders[sessionId].splice(bestMatchIndex, 1);
+    }
+
+    // Add new item with intended quantity (default to 1 if missing)
+    const newQty = newItem.quantity || 1;
+    const existingNew = sessionOrders[sessionId].find(i => i.name === newItem.name);
+    if (existingNew) {
+      existingNew.quantity += newQty;
+    } else {
+      sessionOrders[sessionId].push({ ...newItem, quantity: newQty });
+    }
+
   } else {
+    // Couldn't find anything to replace, treat as new
     updateOrder(sessionId, [newItem]);
   }
 };
@@ -259,7 +295,7 @@ const rephraseWithCohere = async (updateMessage, currentOrder, total) => {
   const fullOrder = formatOrder(currentOrder);
 
   const aiPrompt = `
-You are a helpful and polite Raising Cane’s employee. You just updated the customer’s order.
+You are a helpful and polite, but concise Raising Cane’s employee. You just updated the customer’s order.
 
 Update summary:
 ${updateMessage}
@@ -269,7 +305,7 @@ ${fullOrder}
 
 Total so far: $${total}
 
-Rephrase the update summary as a friendly and natural message to the customer:
+Rephrase the update summary as a friendly and natural message to the customer, but keep the vocabulary simple, don't overdo the friendliness, and don't assign a gender to the customer:
   `.trim();
 
   const response = await axios.post('https://api.cohere.ai/v1/generate', {
@@ -321,7 +357,9 @@ const generateText = async (sessionId, userPrompt) => {
     if (possibleItems.length > 0) {
       let reply = '';
       for (const item of possibleItems) {
-        const dbItem = menuItems.find(m => normalize(m.name) === normalize(item.name.split(' (')[0]));
+        const baseName = item.name.split(/[\(,\[]/)[0].trim(); 
+        const dbItem = menuItems.find(m => normalize(m.name) === normalize(baseName));
+        
         if (dbItem) {
           let calories = null;
           if (Array.isArray(dbItem.sizes) && item.name.includes('(')) {
@@ -383,10 +421,10 @@ const generateText = async (sessionId, userPrompt) => {
   }
   // If the customers wants to know what items there are in a specific category, provide it. These keywords indicate an intent for that.
   const categoryKeywords = {
-  drinks: ["what drinks", "what beverages"],
-  combos: [, "what combos", "what meals"],
-  tailgates: ["what tailgates"],
-  extras: ["what extras", "what sides"]
+  drinks: ["what drinks", "what beverages", "what kind of drinks"],
+  combos: [, "what combos", "what kind of combos", "what meals", "what kind of meals"],
+  tailgates: ["what tailgates", "what kind of tailgates"],
+  extras: ["what extras", "what kind of extras", "what sides", "what kind of sides"]
 };
 
 for (const [categoryKey, keywords] of Object.entries(categoryKeywords)) {
@@ -502,7 +540,7 @@ for (const [categoryKey, keywords] of Object.entries(categoryKeywords)) {
     ${orderHTML}
   </ul>
   <p><strong>Final Total:</strong> $${total}</p>
-  <p>Would you like anything else before we wrap it up?</p>
+  <p>Thank you again and have a great day!</p>
     `.trim();
 
   }
@@ -518,8 +556,9 @@ for (const [categoryKey, keywords] of Object.entries(categoryKeywords)) {
     "current order",
     "so far in my order"
   ];
-  
-  if (orderInquiryKeywords.some(phrase => userText.includes(phrase))) {
+  const cleanedText = userPrompt.toLowerCase().replace(/[?.!,]/g, '');
+  if (orderInquiryKeywords.some(phrase => cleanedText.includes(phrase)))
+  {
     const order = sessionOrders[sessionId] || [];
     const total = calculateTotal(order).toFixed(2);
   
@@ -564,7 +603,36 @@ for (const [categoryKey, keywords] of Object.entries(categoryKeywords)) {
     return await rephraseWithCohere(summary, order, total);
   }
     // Process each clause for additions, removals, or replacements
-  const clauses = rawClauses;
+    let clauses = [];
+
+const hasComma = userPrompt.includes(',');
+const hasAnd = /\band\b/i.test(userPrompt);
+const isLikelyModifier = /\b(no|without|with)\b/i.test(userPrompt);
+
+if (hasComma) {
+  // Multi-item: split on commas and sentence enders
+  clauses = userPrompt
+    .split(/(?:,|[.?!/]+)/)
+    .map(c => c.trim())
+    .filter(Boolean);
+} else if (hasAnd && !isLikelyModifier) {
+  // Two-item list: split only if "and" is not part of a modifier clause
+  clauses = userPrompt
+    .split(/\band\b/i)
+    .map(c => c.trim())
+    .filter(Boolean);
+} else {
+  // One full sentence or modifier-based clause
+  clauses = userPrompt
+    .split(/[.?!/]+/)
+    .map(c => c.trim())
+    .filter(Boolean);
+}
+
+// 
+clauses = clauses.map(c => c.replace(/^and\s+/i, "").trim());
+
+    
   let currentOperation = null;
 
   for (const clause of clauses) {
@@ -586,17 +654,17 @@ for (const [categoryKey, keywords] of Object.entries(categoryKeywords)) {
     for (const match of quantityMatches) {
       const qty = parseInt(match[1]);
       const phrase = match[2].trim();
-      const found = extractOrderItems(phrase);
+      const found = extractOrderItems(phrase, qty); 
       if (found.length > 0) {
-        found[0].quantity = qty;
         manualItems.push(found[0]);
       }
     }
+    
 
     // Handle based on the current operation (remove in this case)
     if (currentOperation === "remove") {
-      const targets = extractOrderItems(clause);
-      const removed = removeItems(sessionId, targets);
+      const targets = manualItems.length > 0 ? manualItems : extractOrderItems(clause);
+      const removed = removeItems(sessionId, targets);      
       if (removed.length > 0) {
         combinedSummary += `Removed:\n${formatOrder(removed)}\n\n`;
       } else {
