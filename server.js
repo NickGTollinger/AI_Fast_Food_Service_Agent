@@ -1,3 +1,4 @@
+
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
@@ -8,14 +9,15 @@ const authRoutes = require('./routes/authRoutes');
 dotenv.config();
 
 const app = express();
-app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json()); // Needed to parse JSON POST body
+app.use('/api', authRoutes);
+console.log("Mounted /api routes");
+
 app.use(cors());
 
-// Retrieve the chat interface from our index.html and prepare to run server
-app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/api/cohere', cohereRoutes);
-
+app.use('/api', authRoutes);
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);

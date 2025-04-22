@@ -4,7 +4,7 @@ dotenv.config();
 
 // Keep track of the orders of particular session
 const sessionOrders = {};
-const connectDB = require("../db");
+const { connectDB } = require('../db');
 
 // Set up storage for database and menu items
 let db;
@@ -23,6 +23,15 @@ const stringSimilarity = require('string-similarity');
 
 // For parsing purposes we remove case sensitivity and extraneous characters
 const normalize = (text) => text.toLowerCase().replace(/[^a-z0-9\s]/g, '');
+const getMostRecentOrder = async (customerId) => {
+  if (!db || !customerId) return null;
+  const orders = await db.collection("orders")
+    .find({ customerId })
+    .sort({ timestamp: -1 })
+    .limit(1)
+    .toArray();
+  return orders.length ? orders[0] : null;
+};
 
 const extractOrderItems = (input, quantity = null) => {
   const result = [];
@@ -311,7 +320,7 @@ Rephrase the update summary as a friendly and natural message to the customer, b
   const response = await axios.post('https://api.cohere.ai/v1/generate', {
     model: 'command',
     prompt: aiPrompt,
-    max_tokens: 100,
+    max_tokens: 150,
     temperature: 0.3
   }, {
     headers: {
@@ -323,8 +332,8 @@ Rephrase the update summary as a friendly and natural message to the customer, b
   return response.data.generations[0].text.trim();
 };
 
-// Function for saving user order info. This includes session id, eventually customer id, the items, their total, and the date. Customer ID and date will be useful for personalization.
-const saveOrderToDB = async (sessionId) => {
+// Function for saving user order info. This includes session id, customer id, the items, their total, and the date. Customer ID and date will be useful for personalization.
+const saveOrderToDB = async (sessionId, customerId) => {
   console.log("[Saving order]")
   if (!db || !sessionOrders[sessionId]) return;
   const order = sessionOrders[sessionId];
@@ -332,11 +341,11 @@ const saveOrderToDB = async (sessionId) => {
 
   const orderDocument = {
     sessionId,
-    customerId: null, // Placeholder, replace with actual user ID in the future
+    customerId: customerId || null,
     items: order,
     total,
     timestamp: new Date()
-  };
+  };  
 
   try {
     const result = await db.collection('orders').insertOne(orderDocument);
@@ -346,13 +355,55 @@ const saveOrderToDB = async (sessionId) => {
   }
 };
 
+// This will hold a customer's previous, most recent order if applicable and offer it at the start.
+const pendingRepeatOrder = {};
+
 
 // Generate text operations do not consume AI tokens as they are simple operations that can easily be done via backend operations
-const generateText = async (sessionId, userPrompt) => {
+const generateText = async (sessionId, userPrompt, customerId) => {
   const userText = normalize(userPrompt);
+  // When the user first arrives on the page, trigger a welcome message and offer previous order if applicable
+  if (userPrompt === "__USER_ARRIVED__") {
+    if (customerId) {
+      const recent = await getMostRecentOrder(customerId);
+      if (recent && recent.items?.length) {
+        const itemsSummary = recent.items.map(i => `- ${i.quantity} ${i.name}`).join('\n');
+        const total = `$${calculateTotal(recent.items).toFixed(2)}`;
+  
+        pendingRepeatOrder[sessionId] = recent.items;
+  
+        return `Welcome back! Last time you ordered:\n${itemsSummary}\nTotal: ${total}.\nWould you like the same order again?`;
+      }
+    }
+  
+    return "Welcome to Raising Cane’s! What can I get started for you today?";
+  }
+  
+  // Check for response to the previous order request. If yes, add their previous order. If no, don't and ask what they want
+  else if (Array.isArray(pendingRepeatOrder[sessionId]) && pendingRepeatOrder[sessionId].length > 0) {
+    const yesPattern = /\b(yes|yeah|sure|okay|yep|yup|please do|go ahead)\b/i;
+    const noPattern = /\b(no|nah|nope|not now|don’t|don't want it)\b/i;
+  
+    if (yesPattern.test(userPrompt)) {
+      const repeatItems = pendingRepeatOrder[sessionId];
+      updateOrder(sessionId, repeatItems);
+      delete pendingRepeatOrder[sessionId];
+  
+      return `Great! I've re-added your last order:\n${formatOrder(repeatItems)}\nTotal: $${calculateTotal(repeatItems).toFixed(2)}.\nLet me know if you’d like to add or change anything.`;
+    }
+  
+    if (noPattern.test(userPrompt)) {
+      delete pendingRepeatOrder[sessionId];
+      return "No problem! What would you like to order today?";
+    }
+  
+    // If not a yes, no, or some variant then just prompt again
+    return "Would you like to repeat your last order? Just say 'yes' or 'no'.";
+  }
+  
   
   // If the customers asks for calories for an item, provide it
-  if (userText.includes("calorie") || userText.includes("how many calories")) {
+  else if (userText.includes("calorie") || userText.includes("how many calories")) {
     const possibleItems = extractOrderItems(userPrompt);
     if (possibleItems.length > 0) {
       let reply = '';
@@ -533,7 +584,7 @@ for (const [categoryKey, keywords] of Object.entries(categoryKeywords)) {
       `<li>${i.quantity} × <strong>${i.name}</strong> - $${(i.price * i.quantity).toFixed(2)}</li>`
     ).join('');
     // Call the save order function when user is finished
-    await saveOrderToDB(sessionId);
+    await saveOrderToDB(sessionId, customerId);
     return `
   <h3>Thanks for your order! Here's what I have for you:</h3>
   <ul style="padding-left: 1em;">
@@ -584,9 +635,6 @@ for (const [categoryKey, keywords] of Object.entries(categoryKeywords)) {
   if (!sessionOrders[sessionId]) sessionOrders[sessionId] = [];
 
   let combinedSummary = '';
-
-  // Split user prompt into clauses using commas and periods
-  const rawClauses = userPrompt.split(/(?:,|\.\s*)/).map(c => c.trim()).filter(Boolean);
   
   // Check for common finalization phrases before attempting to modify the order
   const donePhrases = ["finished", "that's all", "that is all", "done", "i'm done", "that finishes my order"];
@@ -602,8 +650,8 @@ for (const [categoryKey, keywords] of Object.entries(categoryKeywords)) {
     `.trim();
     return await rephraseWithCohere(summary, order, total);
   }
-    // Process each clause for additions, removals, or replacements
-    let clauses = [];
+// Process each clause for additions, removals, or replacements. Parsing rules expect commas for three or more items, and a conjunction like and for two item orders.
+let clauses = [];
 
 const hasComma = userPrompt.includes(',');
 const hasAnd = /\band\b/i.test(userPrompt);
@@ -628,8 +676,7 @@ if (hasComma) {
     .map(c => c.trim())
     .filter(Boolean);
 }
-
-// 
+// Map these as the new clauses
 clauses = clauses.map(c => c.replace(/^and\s+/i, "").trim());
 
     
