@@ -168,7 +168,7 @@
     // Send message to your backend API
     // Local server fetch: const response = await fetch("http://localhost:3000/api/cohere/generate", {
     // Render server fetch: await fetch("https://cs4485-team-6.onrender.com/api/cohere/generate", {
-    const response = await fetch("https://cs4485-team-6.onrender.com/api/cohere/generate", {
+    const response = await fetch("https://cs4485-team-6-calvin.onrender.com/api/cohere/generate", {
 
 
       method: "POST",
@@ -197,7 +197,35 @@
       // Replace this with actual checkout functionality
       alert('Proceeding to checkout!');
     }
+
+    function startSpeechRecognition() {
+      // Check if browser supports webkitSpeechRecognition
+      if (!('webkitSpeechRecognition' in window)) {
+        alert("Sorry, your browser doesn't support speech recognition.");
+      } else {
+        const recognition = new webkitSpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.lang = 'en-US';
+
+        recognition.onresult = function(event) {
+          let transcript = "";
+          for (let i = event.resultIndex; i < event.results.length; i++) {
+            transcript += event.results[i][0].transcript;
+          }
+          // Place the recognized speech into text input field
+          document.getElementById('userInput').value = transcript;
+          // Then send the message to chatbot
+          sendMessage();
+        };
+
+        recognition.onerror = function(event) {
+          // Handle errors here if need be
+        };
+
+        recognition.start();
+      }
+    }
   </script>
-  <script src="../services/cohereService.js"></script>
 </body>
 </html>

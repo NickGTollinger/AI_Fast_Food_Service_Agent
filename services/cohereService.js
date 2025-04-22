@@ -710,41 +710,6 @@ clauses = clauses.map(c => c.replace(/^and\s+/i, "").trim());
   }
 
 
-  // Voice Recognition 
-  function startSpeechRecognition() {
-    // Feature‑detect
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) {
-      alert("This browser does not support speech recognition.");
-      return;
-    }
-  
-    const recognition = new SpeechRecognition();
-    recognition.continuous = false;
-    recognition.interimResults = false;
-    recognition.lang = 'en-US';
-  
-    recognition.onresult = function(event) {
-      let transcript = "";
-      for (let i = event.resultIndex; i < event.results.length; i++) {
-        transcript += event.results[i][0].transcript;
-      }
-      // Put transcript into normal input
-      document.getElementById('userInput').value = transcript;
-      // Trigger existing chat/send logic (can be changed)
-      if (typeof sendMessage === 'function') {
-        sendMessage();
-      }
-    };
-  
-    recognition.onerror = function(event) {
-      console.error('Speech recognition error:', event.error);
-    };
-  
-    recognition.start();
-  }
-
-
   // Store order by session ID alongside their total
   const currentOrder = sessionOrders[sessionId];
   const total = calculateTotal(currentOrder).toFixed(2);

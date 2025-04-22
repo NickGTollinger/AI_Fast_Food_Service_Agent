@@ -210,14 +210,14 @@
           for (let i = event.resultIndex; i < event.results.length; i++) {
             transcript += event.results[i][0].transcript;
           }
-          // Place the recognized speech into the text input field
+          // Place the recognized speech into text input field
           document.getElementById('userInput').value = transcript;
-          // Then send the message to the chatbot
+          // Then send the message to chatbot
           sendMessage();
         };
 
         recognition.onerror = function(event) {
-          // You can handle errors here if needed
+          // Handle errors here if need be
         };
 
         recognition.start();
