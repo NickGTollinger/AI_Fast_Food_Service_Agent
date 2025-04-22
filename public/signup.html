@@ -3,96 +3,77 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sign Up - Raising Cane's Chat</title>
+  <link rel="stylesheet" href="style.css">
+  <title>Sign Up | Ludiflex</title>
   <style>
-    /* Basic styling for form */
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f7f7f7;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .form-container {
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      width: 300px;
-      text-align: center;
-    }
-    input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      box-sizing: border-box;
-    }
-    button {
-      width: 100%;
-      padding: 10px;
-      background-color: #b30000;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .error {
-      color: red;
-      font-size: 0.9em;
-    }
-    a {
-      color: #b30000;
-      text-decoration: none;
-    }
+    .error-message { color: red; text-align: center; margin-top: 10px; }
   </style>
 </head>
 <body>
-  <div class="form-container">
-    <h2>Sign Up</h2>
-    <form id="signupForm">
-      <input type="email" id="email" placeholder="Email" required />
-      <input type="password" id="password" placeholder="Password" required />
-      <div class="error" id="errorMessage"></div>
-      <button type="submit">Sign Up</button>
+  <div class="login-box">
+    <div class="login-header">
+      <header>Sign Up</header>
+    </div>
+
+    <!-- SIGN-UP FORM -->
+    <form id="signup-form">
+      <div class="input-box">
+        <input type="email" class="input-field" id="signup-email" placeholder="Email" required>
+      </div>
+      <div class="input-box">
+        <input type="password" class="input-field" id="signup-password" placeholder="Password" required>
+      </div>
+      <div class="input-submit">
+        <button type="submit" class="submit-btn">Sign Up</button>
+      </div>
+      <div class="sign-up-link">
+        <p>Already have an account? <a href="index.html">Login</a></p>
+      </div>
+      <div id="signup-error" class="error-message"></div>
     </form>
-    <p>Already have an account? <a href="login.html">Login here</a></p>
   </div>
 
   <script>
-    const signupForm = document.getElementById("signupForm");
-    signupForm.addEventListener("submit", async (e) => {
+    document.getElementById("signup-form").addEventListener("submit", function (e) {
       e.preventDefault();
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-      const errorMessage = document.getElementById("errorMessage");
-      
-      // Enforce password: at least 8 characters and one special character
-      const passwordRegex = /^(?=.*[!@#$%^&*])(?=.{8,})/;
-      if (!passwordRegex.test(password)) {
-        errorMessage.textContent = "Password must be at least 8 characters long and include a special character.";
+      const email = document.getElementById("signup-email").value.trim();
+      const password = document.getElementById("signup-password").value;
+      const errorMessage = document.getElementById("signup-error");
+      errorMessage.textContent = "";
+
+      if (!email.includes("@") || password.length < 6) {
+        errorMessage.textContent = "Enter a valid email and password (at least 6 characters)";
         return;
       }
-      errorMessage.textContent = "";
-      
-      try {
-        // Send signup data to backend (adjust the endpoint URL as needed)
-        const response = await fetch("/api/signup", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password })
-        });
-        const data = await response.json();
-        if (data.success) {
-          // On successful signup, redirect to login page
-          window.location.href = "login.html";
+
+      fetch("/api/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+      })
+      .then(async (res) => {
+        let data;
+        try {
+          data = await res.json();
+        } catch (jsonErr) {
+          console.error("Failed to parse JSON:", jsonErr);
+          throw new Error("Invalid server response");
+        }
+
+        if (res.ok) {
+          localStorage.setItem("customerId", data.customerId);
+          localStorage.setItem("userEmail", email);
+          alert("Signup successful! Please log in.");
+          window.location.href = "index.html";
         } else {
           errorMessage.textContent = data.message || "Signup failed.";
+          console.warn("Server responded with:", data);
         }
-      } catch (err) {
-        errorMessage.textContent = "An error occurred. Please try again.";
-      }
+      })
+      .catch(err => {
+        console.error("Fetch or logic error:", err);
+        errorMessage.textContent = "Server error. Please try again.";
+      });
     });
   </script>
 </body>
