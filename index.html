@@ -1,39 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Login | Ludiflex</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="style.css">
+  <title>Login & Sign Up | Ludiflex</title>
+  <style>
+    .form-box { display: none; }
+    .form-box.active { display: block; }
+  </style>
 </head>
 <body>
-    <div class="login-box">
-        <div class="login-header">
-            <header>Login</header>
-        </div>
-        <div class="input-box">
-            <input type="text" class="input-field" placeholder="Email" autocomplete="off" required>
-        </div>
-        <div class="input-box">
-            <input type="password" class="input-field" placeholder="Password" autocomplete="off" required>
-        </div>
-        <div class="forgot">
-            <section>
-                <input type="checkbox" id="check">
-                <label for="check">Remember me</label>
-            </section>
-            <section>
-                <a href="#">Forgot password</a>
-            </section>
-        </div>
-        <div class="input-submit">
-            <button class="submit-btn" id="submit"></button>
-            <label for="submit">Sign In</label>
-        </div>
-        <div class="sign-up-link">
-            <p>Don't have account? <a href="#">Sign Up</a></p>
-        </div>
+  <div class="login-box">
+    <div class="login-header">
+      <header id="form-title">Sign Up</header>
     </div>
+
+    <!-- SIGN-UP FORM -->
+    <form id="signup-form" class="form-box active">
+      <div class="input-box">
+        <input type="email" class="input-field" id="signup-email" placeholder="Email" required>
+      </div>
+      <div class="input-box">
+        <input type="password" class="input-field" id="signup-password" placeholder="Password" required>
+      </div>
+      <div class="input-submit">
+        <button type="submit" class="submit-btn">Sign Up</button>
+      </div>
+      <div class="sign-up-link">
+        <p>Already have an account? <a href="#" id="show-login">Login</a></p>
+      </div>
+    </form>
+
+    <!-- LOGIN FORM -->
+    <form id="login-form" class="form-box">
+      <div class="input-box">
+        <input type="email" class="input-field" id="login-email" placeholder="Email" required>
+      </div>
+      <div class="input-box">
+        <input type="password" class="input-field" id="login-password" placeholder="Password" required>
+      </div>
+      <div class="forgot">
+        <section>
+          <input type="checkbox" id="check">
+          <label for="check">Remember me</label>
+        </section>
+        <section>
+          <a href="#">Forgot password</a>
+        </section>
+      </div>
+      <div class="input-submit">
+        <button type="submit" class="submit-btn">Login</button>
+      </div>
+      <div class="sign-up-link">
+        <p>Don't have an account? <a href="#" id="show-signup">Sign Up</a></p>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const signupForm = document.getElementById("signup-form");
+    const loginForm = document.getElementById("login-form");
+    const formTitle = document.getElementById("form-title");
+
+    document.getElementById("show-login").addEventListener("click", () => {
+      signupForm.classList.remove("active");
+      loginForm.classList.add("active");
+      formTitle.textContent = "Login";
+    });
+
+    document.getElementById("show-signup").addEventListener("click", () => {
+      loginForm.classList.remove("active");
+      signupForm.classList.add("active");
+      formTitle.textContent = "Sign Up";
+    });
+
+    signupForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const email = document.getElementById("signup-email").value;
+      const password = document.getElementById("signup-password").value;
+
+      if (!email.includes("@") || password.length < 6) {
+        alert("Enter a valid email and password (at least 6 characters)");
+        return;
+      }
+
+      localStorage.setItem("userEmail", email);
+      localStorage.setItem("userPassword", password);
+
+      alert("Sign-up successful! Please log in.");
+      signupForm.classList.remove("active");
+      loginForm.classList.add("active");
+      formTitle.textContent = "Login";
+    });
+
+    loginForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const email = document.getElementById("login-email").value;
+      const password = document.getElementById("login-password").value;
+
+      const storedEmail = localStorage.getItem("userEmail");
+      const storedPassword = localStorage.getItem("userPassword");
+
+      if (email === storedEmail && password === storedPassword) {
+        alert("Login successful!");
+        // window.location.href = "dashboard.html"; // optional
+      } else {
+        alert("Invalid credentials. Please try again.");
+      }
+    });
+  </script>
 </body>
 </html>
+
