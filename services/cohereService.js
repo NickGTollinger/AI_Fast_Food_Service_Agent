@@ -401,6 +401,12 @@ const generateText = async (sessionId, userPrompt, customerId) => {
     return "Would you like to repeat your last order? Just say 'yes' or 'no'.";
   }
   
+  // Clear order command
+  else if (/\b(clear|reset|empty)\b.*\border\b/i.test(userPrompt)) {
+    sessionOrders[sessionId] = [];
+    return "Got it! I've cleared your order. Let me know if you'd like to start a new one.";
+  }
+
   
   // If the customers asks for calories for an item, provide it
   else if (userText.includes("calorie") || userText.includes("how many calories")) {
