@@ -170,7 +170,8 @@ localStorage.setItem("sessionId", sessionId);
     chatbox.innerHTML += `<div class="message user">You: ${userInput}</div>`;
     // Send message to backend API
     // Local server fetch: const response = await fetch("http://localhost:3000/api/cohere/generate", {
-    // Render server fetch: await fetch("https://cs4485-team-6.onrender.com/api/cohere/generate", {
+    // Render server fetch: await fetch("https://cs4485-team-6-deonte.onrender.com/api/cohere/generate", {
+    HEAD
       try {
           const baseUrl = window.location.hostname === "localhost"
               ? "http://localhost:3000"
@@ -182,6 +183,14 @@ localStorage.setItem("sessionId", sessionId);
               body: JSON.stringify({ sessionId, prompt: userInput, customerId })
           });
 
+
+    try {
+      const response = await fetch("https://cs4485-team-6-deonte.onrender.com/api/cohere/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sessionId, prompt: userInput, customerId })
+      });
+    1fe16e8 (Added a start new order button and addressed a bug where users all have the same session ID)
 
       const data = await response.json();
       if (data.reply) {
