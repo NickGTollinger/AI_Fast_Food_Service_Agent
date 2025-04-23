@@ -14,4 +14,12 @@ async function connectDB() {
   }
 }
 
-module.exports = connectDB;
+async function getUserCollection() {
+  if (!client.topology || !client.topology.isConnected()) {
+    await client.connect();
+  }
+  const db = client.db("user-input");
+  return db.collection("user-credentials and information");
+}
+
+module.exports = {connectDB, getUserCollection};

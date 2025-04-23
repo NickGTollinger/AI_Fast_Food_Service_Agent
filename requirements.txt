@@ -3,12 +3,12 @@
 #Install Git version 2.48.1, add to PATH as well
 
 #Run this command to get dependencies (Express/Node.js, dotenv for API key security, axios to call Cohere API, cors for frontend requests
-npm install express dotenv axios cors serverless-http
+npm install express dotenv axios cors serverless-http mongodb string-similarity uuid
 
 # Note: Create the '.env' file under the FastFood_AI directory and add the below:
 COHERE_API_KEY=insert_your_api_key_here
 PORT = 3000
-
+MONGO_URI=mongodb+srv://dbUser:dbUser@databasecluster.cxgvj.mongodb.net/?retryWrites=true&w=majority&appName=DatabaseCluster
 # If you've made edits and want to push, perform the below:
 
 git add .

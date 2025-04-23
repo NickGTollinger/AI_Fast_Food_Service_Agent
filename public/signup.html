@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login | Ludiflex</title>
+  <title>Sign Up | Ludiflex</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -38,18 +38,6 @@
       width: 100%;
       padding: 10px;
       box-sizing: border-box;
-    }
-
-    .forgot {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.9em;
-      margin: 10px 0;
-    }
-
-    .forgot a {
-      text-decoration: none;
-      color: #b30000;
     }
 
     .input-submit {
@@ -87,65 +75,69 @@
 <body>
   <div class="login-box">
     <div class="login-header">
-      <header id="form-title">Login</header>
+      <header>Sign Up</header>
     </div>
 
-    <!-- LOGIN FORM -->
-    <form id="login-form">
+    <!-- SIGN-UP FORM -->
+    <form id="signup-form">
       <div class="input-box">
-        <input type="email" class="input-field" id="login-email" placeholder="Email" required>
+        <input type="email" class="input-field" id="signup-email" placeholder="Email" required>
       </div>
       <div class="input-box">
-        <input type="password" class="input-field" id="login-password" placeholder="Password" required>
-      </div>
-      <div class="forgot">
-        <section>
-          <input type="checkbox" id="check">
-          <label for="check">Remember me</label>
-        </section>
-        <section>
-          <a href="#">Forgot password</a>
-        </section>
+        <input type="password" class="input-field" id="signup-password" placeholder="Password" required>
       </div>
       <div class="input-submit">
-        <button type="submit" class="submit-btn">Login</button>
+        <button type="submit" class="submit-btn">Sign Up</button>
       </div>
       <div class="sign-up-link">
-        <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+        <p>Already have an account? <a href="index.html">Login</a></p>
       </div>
-      <div id="login-error" class="error-message"></div>
+      <div id="signup-error" class="error-message"></div>
     </form>
   </div>
 
   <script>
-    document.getElementById("login-form").addEventListener("submit", function (e) {
+    document.getElementById("signup-form").addEventListener("submit", function (e) {
       e.preventDefault();
-      const email = document.getElementById("login-email").value;
-      const password = document.getElementById("login-password").value;
-      const errorMessage = document.getElementById("login-error");
+      const email = document.getElementById("signup-email").value.trim();
+      const password = document.getElementById("signup-password").value;
+      const errorMessage = document.getElementById("signup-error");
       errorMessage.textContent = "";
 
-      fetch("/api/login", {
+      if (!email.includes("@") || password.length < 6) {
+        errorMessage.textContent = "Enter a valid email and password (at least 6 characters)";
+        return;
+      }
+
+      fetch("/api/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
       })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
+      .then(async (res) => {
+        let data;
+        try {
+          data = await res.json();
+        } catch (jsonErr) {
+          console.error("Failed to parse JSON:", jsonErr);
+          throw new Error("Invalid server response");
+        }
+
+        if (res.ok) {
           localStorage.setItem("customerId", data.customerId);
           localStorage.setItem("userEmail", email);
-          alert("Login successful!");
-          window.location.href = "chat.html";
+          alert("Signup successful! Please log in.");
+          window.location.href = "index.html";
         } else {
-          errorMessage.textContent = data.message || "Login failed.";
+          errorMessage.textContent = data.message || "Signup failed.";
+          console.warn("Server responded with:", data);
         }
       })
       .catch(err => {
-        console.error("Login error:", err);
+        console.error("Fetch or logic error:", err);
         errorMessage.textContent = "Server error. Please try again.";
       });
     });
-  </script>  
+  </script>
 </body>
 </html>

@@ -7,14 +7,16 @@ router.post('/generate', async (req, res) => {
     console.log("/generate route hit");
 
     try {
-        const { sessionId, prompt } = req.body;
+        const { sessionId, prompt, customerId } = req.body;
         console.log("Request body:", req.body);
 
         if (!sessionId) {
             return res.status(400).json({ error: "Session ID is required." });
         }
 
-        const response = await generateText(sessionId, prompt);
+        const response = await generateText(sessionId, prompt, customerId);
+        console.log("Received from frontend:", sessionId, prompt, customerId);
+
         console.log("Cohere response generated:", response);
 
         res.json({ reply: response });
