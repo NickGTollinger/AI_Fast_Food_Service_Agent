@@ -108,7 +108,7 @@
       <option value="sides">Sides</option>
       <option value="drinks">Drinks</option>
     </select>
-    <button class="checkout-btn" onclick="checkout()">Checkout</button>
+    <button class="checkout-btn" onclick="startNewOrder()">Checkout</button>
   </div>
    <!-- ===== CHATBOX AREA ===== -->
   <div id="chatbox"></div>
@@ -117,12 +117,15 @@
   <input id="userInput" placeholder="Hi, I’d like to order some chicken fingers..." type="text"/>
   <button class="send" onclick="sendMessage()">Send</button>
   <button class="speak" onclick="startSpeechRecognition()">Speak</button>
+  <button class="checkout-btn" style="margin-top: 15px;" onclick="startNewOrder()">Start New Order</button>
 </div>
 
 <script>
-    // ===== SESSION SETUP =====
-  const sessionId = localStorage.getItem("sessionId") || Math.random().toString(36).substring(7);
-  localStorage.setItem("sessionId", sessionId);
+// ===== SESSION SETUP =====
+// Generate a new UUID session ID every time the chat page loads
+const sessionId = crypto.randomUUID();
+localStorage.setItem("sessionId", sessionId);
+
   const customerId = localStorage.getItem("customerId");
 
   // Initial message (welcome / previous order) sent on load
@@ -168,12 +171,17 @@
     // Send message to backend API
     // Local server fetch: const response = await fetch("http://localhost:3000/api/cohere/generate", {
     // Render server fetch: await fetch("https://cs4485-team-6.onrender.com/api/cohere/generate", {
-    try {
-      const response = await fetch("https://cs4485-team-6-deonte.onrender.com/api/cohere/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId, prompt: userInput, customerId })
-      });
+      try {
+          const baseUrl = window.location.hostname === "localhost"
+              ? "http://localhost:3000"
+              : "https://cs4485-team-6-deonte.onrender.com";
+
+          const response = await fetch(`${baseUrl}/api/cohere/generate`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ sessionId, prompt: userInput, customerId })
+          });
+
 
       const data = await response.json();
       if (data.reply) {
@@ -220,6 +228,15 @@
       recognition.start();
     }
   }
+
+  function startNewOrder() {
+  const newSessionId = crypto.randomUUID();
+  localStorage.setItem("sessionId", newSessionId);
+
+  // Reload the page to trigger a new greeting and clear order
+  window.location.reload();
+}
+
 </script>
 </body>
 </html>
