@@ -1,9 +1,9 @@
-// routes/authRoutes.js
 console.log("authRoutes.js loaded and mounted");
 
+//Set up express server connection, database connection, and implement customerId
 const express = require('express');
 const { getUserCollection } = require('../db');
-const { v4: uuidv4 } = require('uuid'); // Needed to generate customerId
+const { v4: uuidv4 } = require('uuid'); 
 const router = express.Router();
 
 // Signup endpoint (storing credentials in plain text for demo purposes)
@@ -38,10 +38,9 @@ router.post('/signup', async (req, res) => {
 
     // Add it to the stored object
     const newUser = { email, password, customerId };
-    console.log("Attempting to insert user:", newUser); // <-- ADD THIS
+    console.log("Attempting to insert user:", newUser); 
     await userCollection.insertOne(newUser);
-    console.log("Inserted user into MongoDB"); // <-- ADD THIS
-
+    console.log("Inserted user into MongoDB");
     return res.status(201).json({
       success: true,
       message: 'User created successfully.',
