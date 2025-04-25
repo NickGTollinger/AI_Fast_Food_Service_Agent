@@ -643,7 +643,7 @@ for (const [categoryKey, keywords] of Object.entries(categoryKeywords)) {
   let combinedSummary = '';
   
   // Check for common finalization phrases before attempting to modify the order
-  const donePhrases = ["finished", "that's all", "that is all", "done", "i'm done", "that finishes my order"];
+  const donePhrases = ["finished", "that's all", "that is all", "done", "i'm done", "that finishes my order", "that's it"];
   if (donePhrases.some(p => userPrompt.toLowerCase().includes(p))) {
     const order = sessionOrders[sessionId] || [];
     const total = calculateTotal(order).toFixed(2);
@@ -692,11 +692,11 @@ clauses = clauses.map(c => c.replace(/^and\s+/i, "").trim());
     const lowered = clause.toLowerCase();
 
     // Update current operation if a new keyword is found
-    if (lowered.includes("remove") || lowered.includes("delete")) {
+    if (lowered.includes("remove") || lowered.includes("delete") || lowered.includes("i don't want") || lowered.includes("get rid of")) {
       currentOperation = "remove";
     } else if (lowered.includes("replace") || lowered.includes("change") || lowered.includes("instead")) {
       currentOperation = "replace";
-    } else if (lowered.includes("add")) {
+    } else if (lowered.includes("add") || lowered.includes("i want a") || lowered.includes("i'd like a") || lowered.includes("i would like a") || lowered.includes("can i get a") || lowered.includes("give me a") || lowered.includes("could i get a")) {
       currentOperation = "add";
     }
 

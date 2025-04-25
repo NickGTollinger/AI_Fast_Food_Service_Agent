@@ -186,10 +186,14 @@ localStorage.setItem("sessionId", sessionId);
 
     try {
 <<<<<<< HEAD
+<<<<<<< HEAD
       const response = await fetch("https://cs4485-team-6-deonte.onrender.com/api/cohere/generate", {
 =======
       const response = await fetch("http://localhost:3000/api/cohere/generate", {
 >>>>>>> bf93519 (Quick push just to add some more keywords, should make the backend a bit less picky)
+=======
+      const response = await fetch("https://cs4485-team-6.onrender.com/api/cohere/generate", {
+>>>>>>> be4eea5 (Added a few extra keywords to make backend less picky)
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ sessionId, prompt: userInput, customerId })
